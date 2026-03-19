@@ -1,0 +1,15 @@
+[package]
+name = "carrothash"
+version = "1.0.0"
+edition = "2021"
+description = "CarrotHash CLI (Rust版) - 超快文件哈希计算工具"
+authors = ["BigCat"]
+
+[dependencies]
+md-5 = "0.10"
+sha1 = "0.10"
+sha2 = "0.10"
+colored = "2.1"
+chrono = "0.4"
+crc32fast = "1.3"
+rayon = "1.8"
