@@ -1,9 +1,9 @@
 [package]
-name = "carrothash"
+name = "carrot_cli"
 version = "1.0.0"
 edition = "2021"
-description = "CarrotHash CLI (Rust版) - 超快文件哈希计算工具"
-authors = ["BigCat"]
+description = "Carrot Cli Tools"
+authors = ["Carrot Studio"]
 
 [dependencies]
 md-5 = "0.10"
@@ -13,3 +13,17 @@ colored = "2.1"
 chrono = "0.4"
 crc32fast = "1.3"
 rayon = "1.8"
+
+[build-dependencies]
+winres = "0.1"
+
+[[bin]]
+name = "carrot-hash"
+path = "src/bin/hash_cli.rs"
+
+[profile.release]
+opt-level = 'z'   # 优化代码体积
+lto = true        # 启用链接时优化
+codegen-units = 1 # 降低并行编译以换取更好的优化
+panic = 'abort'   # 移除异常回溯栈，大幅减小体积
+strip = true      # 自动移除调试符号 (符号表)
