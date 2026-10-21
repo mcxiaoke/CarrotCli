@@ -30,7 +30,7 @@ fn main() {
 
             // 关键：告诉 winres 编译后的资源文件名，避免冲突
             // 这会生成类似 carrot-hash.res 的文件
-            res.compile().expect(&format!("Can not compile resource for {}", bin));
+            res.compile().unwrap_or_else(|e| panic!("Can not compile resource for {}: {}", bin, e));
         }
     }
 }

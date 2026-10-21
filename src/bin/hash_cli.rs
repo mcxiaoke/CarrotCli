@@ -263,12 +263,23 @@ fn compute_all_hashes(p: &Path) -> io::Result<(String, String, String, String, S
 
     Ok((
         format!("{:08x}", c.finalize()),
-        format!("{:x}", m.finalize()),
-        format!("{:x}", s1.finalize()),
-        format!("{:x}", s256.finalize()),
-        format!("{:x}", s384.finalize()),
-        format!("{:x}", s512.finalize()),
+        to_hex(m.finalize()),
+        to_hex(s1.finalize()),
+        to_hex(s256.finalize()),
+        to_hex(s384.finalize()),
+        to_hex(s512.finalize()),
     ))
+}
+
+fn to_hex(bytes: impl AsRef<[u8]>) -> String {
+    const HEX_CHARS: &[u8; 16] = b"0123456789abcdef";
+    let bytes = bytes.as_ref();
+    let mut s = String::with_capacity(bytes.len() * 2);
+    for &b in bytes {
+        s.push(HEX_CHARS[(b >> 4) as usize] as char);
+        s.push(HEX_CHARS[(b & 0xf) as usize] as char);
+    }
+    s
 }
 
 fn compute_only_crc32(p: &Path) -> io::Result<String> {
